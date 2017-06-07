@@ -1,0 +1,23 @@
+# 구글 Speech API 사용 방법
+1. 구글 API 키를 신청한다.
+
+2. 가상 개발 환경 설치
+sudo apt-get install virtualenv 
+* python-docs-samples/speech/grpc 경로에서 실행함.
+
+아래 명령으로 가상 환경을 실행한다.
+virtualenv env
+source env/bin/activate 
+
+3. 실행에 필요한 패키지를 설치한다.
+transcribe_streaming.py 를 실행하기 위해 필요한 패키지를 설치 한다.
+sudo apt-get install portaudio19-dev python-all-dev
+pip install -r requirement.txt를 실행하여 필요한 파이썬 패키지를 설치한다. 
+
+4. 구글 API를 사용하기 위한 키를 export한다.
+export GOOGLE_APPLICATION_CREDENTIALS=/home/pi/your_key_value.json
+
+5. python transcribe_streaming.py를 실행하여 사용한다.
+
+** 마이크가 잘 동작하지 않아 되지 않을 수 있으므로 잘 확인해본다.
+ 
