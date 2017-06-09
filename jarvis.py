@@ -19,7 +19,6 @@ import requests
 from Adafruit_CharLCD import Adafruit_CharLCD
 from time import sleep
 
-
 params = {"version": "1", "city":"부산", "county":"부산진구","village":"가야1동"}
 headers = {"appKey": "0b7e8caa-3d84-3f65-89b5-eb05b4b31070"}
 r = requests.get("http://apis.skplanetx.com/weather/current/hourly", params=params, headers=headers)
@@ -44,7 +43,6 @@ def viewLCD():
     lcd.clear()
     lcd.message(cWeather2)
     sleep(2.5)
-    lcd.clear()
 
 def speak(audioString):
     print(audioString)
@@ -55,9 +53,15 @@ def speak(audioString):
 def recordAudio():
     # Record Audio
     r = sr.Recognizer()
-    with sr.Microphone(device_index = 2, sample_rate = 44100) as source:
+    r.energy_threshold = 500
+    
+    with sr.Microphone(device_index = 1, sample_rate = 44100) as source:
+        #print("Say something!")
+        #audio = r.listen(source)
+        r.adjust_for_ambient_noise(source)
         print("Say something!")
         audio = r.listen(source)
+        print("Done listening!")
     # Speech recognition using Google Speech Recognition
     data = ""
     try:
@@ -77,6 +81,8 @@ def jarvis(data):
         weatherInfo = "오늘의 온도는 "+ cTemp+"도이고  날씨는" + cSky + "입니다."
         viewLCD()
         speak(weatherInfo)
+        viewLCD()
+        lcd.clear()
         
     if "시간" in data:
         speak("현재 시간은 "+ctime()+"년 입니다.")
